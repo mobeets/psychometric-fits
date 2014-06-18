@@ -21,3 +21,11 @@ On the other hand, `example_2()` is a little closer to what we'd want M-H to do.
 So now, the generated samples are all estimates of the shape parameter. The shape parameter used to simulate the data was 3. The estimates cluster around 3, which is good, though this is not always the case given multiple simulations.
 
 ![Example of posterior samples from M-H](/img/example-2.png?raw=true "Example of posterior samples from M-H")
+
+#### Future examples
+
+* Example 3: Fit scale _and_ shape parameters.
+
+* Example 4: Add prior over parameters.
+
+* Example 5: Compare M-H to simply minimizing likelihood.
