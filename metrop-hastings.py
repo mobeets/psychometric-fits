@@ -60,8 +60,11 @@ def example():
     xhs = metropolis_hastings(3, 100000, pf, qrf)
     xhs = prune(xhs, l, e)
 
-    plt.plot(xs, pf(xs))
-    plt.hist(xhs, 100, normed=True)
+    plt.plot(xs, pf(xs), color='b', label='actual posterior')
+    plt.hist(xhs, 100, color='c', normed=True, label='pruned m-h samples')
+    plt.xlabel('x')
+    plt.ylabel('normalized count')
+    plt.legend()
     plt.show()
 
 def main():
