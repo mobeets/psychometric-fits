@@ -44,6 +44,8 @@ One common choice of a cooling schedule `T` is as follows:
 
     T = lambda i: (C*log(i + T_0)) − 1 # for some C and T_0
 
+(The only rules for `T` is that it must be non-increasing, and as i -> ∞, T(i) -> 0.)
+
 Now, at each iteration, the `p_pdf_fcn` of `metropolis_hastings()` is instead calculated as `p_pdf_fcn(x)^(1/T_i)`, where i is the current iteration of the sampler.
 
 The last sample that results is your MAP estimate of the posterior.
