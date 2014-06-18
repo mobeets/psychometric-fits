@@ -14,10 +14,10 @@ The function `example_1()` function in `metrop_hastings.py` currently uses a gau
 
 #### Example 2
 
-But `example_1()` is more like a sanity-check, isn't it? If we hand M-H the pdf, it can generate samples from that pdf...Not very impressive.
+But `example_1()` is more like a sanity-check, isn't it? If we hand M-H the pdf, it can generate samples from that pdf--not that impressive.
 
-On the other hand, `example_2()` is a little closer to what we'd want M-H to do. It simulates data from a weibull pdf given shape and scale parameters, and M-H tries to generate samples (i.e. fit) of the shape parameter, by calculating the log-likelihood of the simulated data.
+On the other hand, `example_2()` is a little closer to what we'd want M-H to do. It simulates data from a weibull pdf given shape and scale parameters, and M-H tries to generate samples of (i.e. fit) the shape parameter, by calculating the log-likelihood of the simulated data.
 
-So now, the generated samples are all estimates of the shape parameter. See the results below:
+So now, the generated samples are all estimates of the shape parameter. The shape parameter used to simulate the data was 3. The estimates cluster around 3, which is good, though this is not always the case given multiple simulations.
 
 ![Example of posterior samples from M-H](/img/example-2.png?raw=true "Example of posterior samples from M-H")
