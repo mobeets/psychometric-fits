@@ -42,9 +42,7 @@ Using M-H to approximate the mode of the posterior is inefficient since it tries
 
 One common choice of a cooling schedule `T` is as follows:
 
-    T_0
-    
-    T_i = (C*log(i + T_0)) − 1 # for some C
+    T = lambda i: (C*log(i + T_0)) − 1 # for some C and T_0
 
 Now, at each iteration, the `p_pdf_fcn` of `metropolis_hastings()` is instead calculated as `p_pdf_fcn(x)^(1/T_i)`, where i is the current iteration of the sampler.
 
