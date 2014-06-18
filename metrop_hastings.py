@@ -45,7 +45,7 @@ def metropolis_hastings(x0, n, p_pdf_fcn, q_rand_fcn, q_pdf_fcn=None, p_logged=T
     px = p_pdf_fcn(x)
     c = 0
     a_fcn = make_mh_rule(q_pdf_fcn, p_logged)
-    for r in np.random.uniform(size=n):
+    for r in np.random.uniform(size=n-1):
         xstar = q_rand_fcn(x)
         pxstar = p_pdf_fcn(xstar)
         if r < a_fcn(x, px, xstar, pxstar):
