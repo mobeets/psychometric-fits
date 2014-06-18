@@ -12,7 +12,7 @@ def example_1():
 
     e = 1 # step size of random-walk
     qrf = lambda x: norm.rvs(x, e)
-    xhs0 = metropolis_hastings(3, 100000, pf, qrf, None, False)
+    xhs0 = metropolis_hastings(3, 100000, pf, qrf, None, None, False)
     xhs = prune(xhs0, l, e)
 
     plt.plot(xs, pf(xs), color='b', label='actual posterior')
