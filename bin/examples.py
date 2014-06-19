@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import exponweib, norm
 
-from metrop_hastings import prune, metropolis_hastings
+from metrop_hastings import prune, metropolis_hastings, simulated_annealing
 
 def example_1():
     a, c = 3, 1
@@ -40,7 +40,7 @@ def example_2():
     plt.axvline(a, label='theta', color='b', linestyle='--')
     plt.hist(ahs, 100, normed=True, label='pruned m-h samples')
     plt.legend()
-    plt.savefig('../img/example-2.png')
+    # plt.savefig('../img/example-2.png')
     plt.show()
 
 def example_3():
@@ -54,7 +54,7 @@ def example_3():
 
     e = 1 # step size of random-walk
     qrf = lambda x, e=e: norm.rvs(x, e)
-    ahs0 = metropolis_hastings(2, 100000, pf, qrf, Tf)
+    ahs0 = simulated_annealing(2, 100000, pf, qrf, Tf)
     print 'Generated {0} samples. MAP estimate is {1}'.format(len(ahs0), ahs0[-1])
 
     plt.hist(ahs0, 100, normed=True, label='samples')
@@ -62,10 +62,10 @@ def example_3():
     plt.axvline(ahs0[-1], label='theta-hat', color='c', linestyle='--')
     plt.xlim([2.8, 3.4])
     plt.legend()
-    plt.savefig('../img/example-3.png')
+    # plt.savefig('../img/example-3.png')
     plt.show()
 
 if __name__ == '__main__':
     # example_1()
-    example_2()
-    # example_3()
+    # example_2()
+    example_3()
