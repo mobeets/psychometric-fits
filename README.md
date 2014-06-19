@@ -56,7 +56,7 @@ So what are the relative tradeoffs apparent so far between M-H and simulated ann
 
 ### Scipy's minimization methods
 
-`scipy.optimize` actually has a pretty broad selection of minimization routines, including simulated annealing. So if you're not looking to view the posterior but are instead looking for its mode, this is probably your best bet (in terms of development time, testing, _and_ solver speed).
+`scipy.optimize` actually has a pretty broad selection of [minimization methods](http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html), including simulated annealing. So if you're not looking to view the posterior but are instead looking for its mode, this is probably your best bet (in terms of development time, testing, _and_ solver speed).
 
 I simulated data in the same way as I did in Examples 2 and 3 and called `scipy.optimize.minimize` with all of its relevant method arguments: `["nelder-mead", "powell", "Anneal", "BFGS", "Newton-CG", "TNC", "L-BFGS-B", "SLSQP"]`. Every single one of these solvers found solutions in basically no time at all, and all of their solutions were identical. Hooray!
 
