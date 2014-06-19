@@ -44,11 +44,11 @@ Now, at each iteration, the `p_pdf_fcn` of `metropolis_hastings()` is instead ca
 
 The very last sample generated is your MAP estimate of the posterior.
 
-### Example 3: Simulated annealing MAP estimate.
+#### Example 3: Simulated annealing MAP estimate
 
 Just as the spread of the proposal function is crucial to fully exploring the posterior in M-H, here the choice and parameters of your cooling function are crucial to appropriately estimating the mode of the posterior.
 
-In the example below, I somewhat hastily chose `d = 1`. Just as in Example 2, the sample size of my simulated data set is only 1000, so though the theta that generated the data was 3, it's not too surprising that our MAP estimate for theta is not exactly three.
+Just as in Example 2, the sample size of my simulated data set is only 1000, so though the theta that generated the data was 3, it's not too surprising that our MAP estimate for theta is not exactly 3. Also, I somewhat hastily set the parameter `d = 1` for my cooling function. Larger sample size and better parameter fitting would definitely improve your simulated annealing experience.
 
 ![Example of MAP from simulated annealing](/img/example-3.png?raw=true "Example of MAP from simulated annealing")
 
