@@ -6,7 +6,7 @@ _Metropolis-Hastings_ sampling (M-H) aims to draw samples from a posterior using
 
 The posterior-ish function is used to determine whether or not the next potential sample is in a region of higher posterior probability compared with the previous sample.
 
-The proposal function describes how to generate the next potential sample. (If the proposal function is symmetric this sampling procedure is sometimes called _Metropolis samping_. If it is independent of the location of the most recent sample it is called an _independent sampler_.)
+The proposal function describes how to generate the next potential sample. (If the proposal function is symmetric this sampling procedure is sometimes called _Metropolis samping_. If it is independent of the location of the most recent sample it is called an _independent sampler_.) The result is a sort of random walk of samples through the posterior-ish function; often the proposal function is a Gaussian centered on the most recent sample with a given variance. Choosing this variance is crucial to sampling the entire posterior, which you can see in the image below.
 
 ![Example of proposal function of M-H](/img/proposal-fcn.png?raw=true "Example of proposal function of M-H")
 
