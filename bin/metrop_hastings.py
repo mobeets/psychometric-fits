@@ -1,4 +1,26 @@
 import numpy as np
+from scipy.optimize import minimize
+
+def minimizer(x0, p_pdf_fcn, method, bounds=None, constraints=None):
+    """
+    only uses function evaluations:
+        nelder-mead
+        powell
+        Anneal
+    uses gradient of function:
+        BFGS
+    better with more variables:
+        Newton-CG
+    bounded/constrained minimization
+        TNC (like Newton-CG but with bounds)
+        L-BFGS-B
+        SLSQP
+    """
+    if bounds is None:
+        bounds = []
+    if constraints is None:
+        constraints = []
+    return minimize(p_pdf_fcn, x0, method=method, bounds=bounds, constraints=constraints)
 
 def prune(xs, L, E):
     """

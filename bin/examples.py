@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import exponweib, norm
 
-from metrop_hastings import prune, metropolis_hastings, simulated_annealing
+from tools import color_list
+from metrop_hastings import prune, metropolis_hastings, simulated_annealing, minimizer
 
 def example_1():
     a, c = 3, 1
@@ -12,7 +13,8 @@ def example_1():
 
     e = 1 # step size of random-walk
     qrf = lambda x: norm.rvs(x, e)
-    xhs0 = metropolis_hastings(3, 100000, pf, qrf, None, None, False)
+    x0 = 2
+    xhs0 = metropolis_hastings(x0, 100000, pf, qrf, None, None, False)
     xhs = prune(xhs0, l, e)
 
     plt.plot(xs, pf(xs), color='b', label='actual posterior')
@@ -31,7 +33,8 @@ def example_2():
 
     e = 1 # step size of random-walk
     qrf = lambda x, e=e: norm.rvs(x, e)
-    ahs0 = metropolis_hastings(2, 100000, pf, qrf)
+    x0 = 2
+    ahs0 = metropolis_hastings(x0, 100000, pf, qrf)
     # ahs = ahs0
     ahs = prune(ahs0, l, e)
     print 'Generated {0} samples after pruning from {1}.'.format(len(ahs), len(ahs0))
@@ -54,7 +57,8 @@ def example_3():
 
     e = 1 # step size of random-walk
     qrf = lambda x, e=e: norm.rvs(x, e)
-    ahs0 = simulated_annealing(2, 100000, pf, qrf, Tf)
+    x0 = 2
+    ahs0 = simulated_annealing(x0, 100000, pf, qrf, Tf)
     print 'Generated {0} samples. MAP estimate is {1}'.format(len(ahs0), ahs0[-1])
 
     plt.hist(ahs0, 100, normed=True, label='samples')
@@ -65,7 +69,32 @@ def example_3():
     # plt.savefig('../img/example-3.png')
     plt.show()
 
+def example_4():
+    a, c = 3, 1
+    data = exponweib.rvs(a, c, size=1000)
+    pf = lambda ah, ch=c, d=data: -np.sum(np.log(exponweib.pdf(data, ah, ch)))
+    x0 = 2
+    sols = {}
+    methods = ["nelder-mead", "powell", "Anneal", "BFGS", "Newton-CG", "TNC", "L-BFGS-B", "SLSQP"]
+    for method in sorted(methods):
+        th = minimizer(x0, pf, 'nelder-mead')
+        assert th['success']
+        # th = {'success': False}
+        # while not th['success']:
+        #     x0 = np.random.uniform(0, 10)
+        #     th = minimizer(x0, pf, 'nelder-mead')
+        #     print '{0} ({1}): {2}'.format(method, x0, th['message'])
+        sols[method] = th['x']
+    plt.axvline(a, label='theta', color='b', linestyle='--')
+    cmap = color_list(len(sols))
+    for i, (method, sol) in enumerate(sols.iteritems()):
+        plt.axvline(sol, label=method, color=cmap[i], linestyle='--')
+    plt.legend()
+    plt.savefig('../img/example-4.png')
+    plt.show()
+
 if __name__ == '__main__':
     # example_1()
     # example_2()
-    example_3()
+    # example_3()
+    example_4()
