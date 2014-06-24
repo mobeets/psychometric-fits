@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import minimize
 
-def minimizer(x0, p_pdf_fcn, method, bounds=None, constraints=None):
+def minimizer(x0, p_pdf_fcn, method, bounds=None, constraints=None, options=None):
     """
     only uses function evaluations:
         nelder-mead
@@ -17,10 +17,10 @@ def minimizer(x0, p_pdf_fcn, method, bounds=None, constraints=None):
         SLSQP
     """
     if bounds is None:
-        bounds = []
+        bounds = [(None, None)]*len(x0) if hasattr(x0, '__iter__') else [(None, None)]
     if constraints is None:
-        constraints = []
-    return minimize(p_pdf_fcn, x0, method=method, bounds=bounds, constraints=constraints)
+        constraints = ()
+    return minimize(p_pdf_fcn, x0, method=method, bounds=bounds, constraints=constraints, options=options)
 
 def prune(xs, L, E):
     """

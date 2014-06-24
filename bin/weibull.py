@@ -27,6 +27,9 @@ def weibull(x, theta, unfold=False):
     a, b, minV, maxV = params(theta, unfold)
     return maxV - (maxV-minV) * np.exp(-pow(x/a, b))
 
+def rand_weibull(x, theta):
+    return np.random.binomial(1, weibull(x, theta))
+
 def inv_weibull(theta, y, unfold=False):
     """
     the function calculates the inverse of a weibull function
@@ -43,20 +46,3 @@ def weibull_mle(theta, xs, ys, unfold=False):
         yh = yh*0.99 + 0.005
         logL = np.sum(ys*np.log(yh) + (1-ys)*np.log(1-yh))
     return -logL
-
-def solve(xs, ys, unfold=False, guess=(0.3, 1.0), ntries=20, quick=True):
-    neg_log_likelihood_fcn = lambda theta: weibull_mle(theta, xs, ys, unfold)
-    sol = None
-    ymin = 100000
-    for i in xrange(ntries):
-        if i > 0:
-            guess = [g + i/10.0 for g in guess]
-        bounds = [(0, None), (0, None)] + ([(0.0, 1.0)] * (len(guess) - 2))
-        soln = minimize(neg_log_likelihood_fcn, guess, method='TNC', bounds=bounds, constraints=[])
-        if soln['success']:
-            theta_hat = soln['x']
-            if not quick and soln['fun'] < ymin:
-                sol = theta_hat
-            else:
-                return theta_hat
-    return sol
